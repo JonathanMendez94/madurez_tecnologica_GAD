@@ -1,0 +1,106 @@
+{% extends 'encuesta/../base/base.html' %}
+{% block titulo %}
+    Cuestionario-Preguntas
+{% endblock %}
+{% block centro %}
+    <div id="content">
+        <nav class="navbar navbar-expand navbar-light bg-white mb-4 static-top shadow"> <!-- topbar-->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group">
+                    {% if cuestionario == "Top Down" %}
+
+                        <p>
+                            <br>
+                            <b>Instrucciones para rellenar este cuestionario</b>
+                        </p>
+                     <p><a href="{% url 'logout' %}">logout</a></p>
+                        <p>Usted está obligado a indicar el verdadero estado de su servicio de llenar este cuestionario,
+                            basado en las preguntas y las opciones proporcionadas.
+                        </p>
+                        <p>Para mantener el cuestionario simple y sin ambigüedades, los términos usados ​​frecuentemente
+                            en el cuestionario se han definido de la siguiente manera.</p>
+                        <p>
+                            <b>Servicio:</b> Un tipo de actividad en la que el Ministerio de Gobierno / Departamento de
+                            atender a las necesidades de sus ciudadanos / residentes / interesados ​​por medios
+                            electrónicos. Además, se conoce por el nombre de la aplicación o aplicaciones.
+                            <br>
+                            <b>Departamento:</b> Gobierno Ministerio / Departamento que ofrece el servicio.
+                            <br>
+                            <b>Beneficiario:</b> Ciudadano / residente / los interesados ​​​​hacer uso del servicio
+                            ofrecido por el departamento.
+                        </p>
+                    {% else %}
+                        <p>
+                            <br>
+                            <b>Instrucciones para rellenar este cuestionario</b>
+                        </p>
+
+                        <p>Usted está obligado a indicar el estado de servicio más conocido a usted como en la fecha de
+                            llenar este cuestionario.</p>
+                        <p>Para mantener el cuestionario simple y sin ambigüedades, los términos usados ​​frecuentemente
+                            en el cuestionario se han definido de la siguiente manera.</p>
+                        <p>
+                            <b>Servicio:</b>Un tipo de actividad en la que el Ministerio de Gobierno / Departamento de
+                            atender a las necesidades de sus ciudadanos / residentes / interesados ​​​​por medios
+                            electrónicos. Además, se conoce por el nombre de la aplicación o aplicaciones.
+                            <br>
+                            <b>Departamento:</b> Gobierno Ministerio / Departamento que ofrece el servicio.
+                            <br>
+                            <b>Beneficiario:</b> Ciudadano / residente / los interesados ​​​​hacer uso del servicio
+                            ofrecido por el departamento.
+                            <br>
+                            <b>Aplicación:</b> Una aplicación es una pieza de software que puede ejecutarse en internet,
+                            en el equipo o en el teléfono.
+                            <br>
+                            <b>Portal web:</b> Un portal web es un sitio web especialmente diseñado que aporta
+                            información en conjunto a partir de diversas fuentes de una manera uniforme.
+                            <br>
+                            <b>Navegador:</b> Un navegador es un programa de aplicación que proporciona una manera de
+                            mirar e interactuar con toda la información en internet.
+                            <br>
+                            <b>Transacción:</b> Una transacción es una unidad lógica que se ejecuta de forma
+                            independiente para la recuperación de datos o actualizaciones.
+                        </p>
+                    {% endif %}
+                </div>
+            </form>
+        </nav>
+        <nav class="navbar navbar-expand navbar-light bg-white mb-4 static-top shadow">
+            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group">
+                    {% if cuestionario == "Top Down" %}
+                        <p>
+                            <b>Nombre de el Gobierno Departamento / Ministerio: </b>{{ gad }}
+                            <br>
+                            <b>Nombre del Servicio: </b>{{ serv }}
+                            <br>
+                            <b>Propósito de los beneficiarios de los: </b> {{ nombre }}
+                            <br>
+                            <b>Servicios de los grupos de interés de: </b>
+                            <br>
+                            <b>Servicio del servicio: </b>
+                        </p>
+                    {% endif %}
+                </div>
+            </form>
+        </nav>
+        <nav class="navbar navbar-expand navbar-light bg-white mb-4 static-top shadow">
+            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group">
+        <b>{% for i in preguntas %}{{ i.pregunta }}{% endfor %}</b>
+                </div>
+            </form>
+        </nav>
+        <form action="" method="post">    {% csrf_token %}
+            {% for i in question_form %}
+                <hr>
+                {{ i }}
+            {% endfor %}
+            <input type="hidden" name="question_number" value="{{ question_number }}">
+            <input type="submit" class="form-control btn btn-primary" value="Siguiente >>">
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'encuesta/../base/base.html' %}
+{% load static %}
+{% block titulo %}
+INICIO
+{% endblock %}
+{% block menu %}
+<nav class="navbar navbar-light bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-2">
+                <a class="navbar-brand" href="{% url 'index2' %}">
+                    <img src="{% static 'encuesta/img/LOJA.png' %}" width="120"
+                         height="70" class="d-inline-block align-top" alt=""></a>
+            </div>
+            <div class="col-6">
+                <b class="text-primary">
+                    <h2>e-Governance Service Maturity Model</h2>
+                </b>
+            </div>
+            <div class="col col-lg-2">
+                <img src="{% static 'encuesta/img/escudo.png' %}" width="60"
+                     height="70" class="d-inline-block align-top" alt="">
+            </div>
+
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block centro %}
+<div id="content">
+    <h1 class="text-center">¡Tus respuesta han sido registradas!</h1>
+    <h3 class="text-center">Muchas gracias por tu tiempo</h3>
+</div>
+{% endblock %}
