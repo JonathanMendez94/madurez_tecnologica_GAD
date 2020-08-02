@@ -1,16 +1,12 @@
-from django.shortcuts import render
 from .forms import *
 from .models import *
-from django.utils import six
+import six
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 import random
-from django.urls import reverse
-from urllib.parse import urlencode
-
 
 # Create your views here.
 def encuesta(request, encuesta):
