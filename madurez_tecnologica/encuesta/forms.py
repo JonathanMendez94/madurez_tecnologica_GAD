@@ -10,8 +10,8 @@ class NameForm(forms.Form):
                              'placeholder': 'Ingresar municipio'})
 
 class Name2Form(forms.Form):
-    servicio = forms.ModelChoiceField(queryset=Gad.objects.none(),
-        widget=forms.CheckboxSelectMultiple)
+    servicio = forms.ModelChoiceField(queryset=Gad.objects.none())
+    servicio.widget.attrs.update({'class': 'form-control form-control-user'})
     def __init__(self, question):
         super(Name2Form, self).__init__()
         valor = GadsServicios.objects.prefetch_related('servicios').filter(gad_id=question)
@@ -34,7 +34,7 @@ class PreguntaTop(forms.Form):
 class PreguntaBotton(forms.Form):
     respuesta = forms.ModelChoiceField(
         queryset=PreguntasRespuestas.objects.none(),
-        widget=forms.CheckboxSelectMultiple)
+        widget=forms.CheckboxSelectMultiple, empty_label=None)
 
     def __init__(self, question, *args, **kwargs):
         super(PreguntaBotton, self).__init__(*args, **kwargs)
