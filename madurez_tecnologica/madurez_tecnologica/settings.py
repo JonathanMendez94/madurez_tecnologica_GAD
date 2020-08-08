@@ -76,24 +76,12 @@ LOGIN_REDIRECT_URL = '/'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'rds_aws':{
+    'default':{
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST': 'database-1.cqpvvelbct2q.us-east-2.rds.amazonaws.com',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-    },
-    'josebd':{
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'encuesta',
-        'USER': 'postgres',
-        'PASSWORD': 'pgadmin',
-    },
-    'default':{
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'madurez',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
     }
 }
 
