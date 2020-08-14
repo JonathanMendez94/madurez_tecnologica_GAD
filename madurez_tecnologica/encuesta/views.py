@@ -7,8 +7,8 @@ from django.shortcuts import render, redirect
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 import random
-
-
+from django.db.models import Sum, Q
+import json
 # Create your views here.
 def encuesta(request, encuesta):
     qs3 = list(Encuestas.objects.filter(idencuesta=encuesta).values())
@@ -113,7 +113,7 @@ def pregunta(request, encuesta, serv):
             question_id = int(post_data['question_number'])
             if 'respuesta' in resp:
                 respuetas = resp['respuesta']
-                if catResp > 2 or catResp < 3 and len(respuetas) < 2:
+                if catResp > 2 or catResp < 3 and len(respuetas) < 2 or question_id==37:
                     for i in range(len(respuetas)):
                         respuesta = int(respuetas[i])
                         res = PreguntasRespuestas.objects.get(idpreguntaresp=respuesta)
@@ -167,6 +167,7 @@ def pregunta(request, encuesta, serv):
         else:
             quiz_form = PreguntaBotton(preg[question_number])
             pregunta = Preguntas.objects.filter(idpregunta=preg[question_number]).values('pregunta')
+
     except :
      return redirect('gracias')
     return render(request, 'encuesta/preguntas.html',
@@ -233,3 +234,37 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'encuesta/signup.html', {'form': form, 'mensaje': mensaje})
+
+
+def resultado(request):
+    dato={}
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            # obtener valor del gad
+            valor = form.cleaned_data['GAD']
+            # consultar GAD en la bd
+            qs1 = list(Gad.objects.filter(gad=valor).values())
+            # obtener id del GAD
+            valor2 = qs1[0]
+            fichas2 = Fichas.objects.filter(gad_servi_usuario__gad_ser__gad=valor2['id_gad']). \
+                values('gad_servi_usuario__gad_ser__servicios__servicio',
+                       'gad_servi_usuario__gad_ser__idgadservicio'). \
+                annotate(Top_Down=Sum('pregunta_respuesta__valor',
+                         filter=Q(pregunta_respuesta__pregunta__encuesta__nombre='Top Down'))). \
+                annotate(Bottom_Up=Sum('pregunta_respuesta__valor',
+                                    filter=Q(pregunta_respuesta__pregunta__encuesta__nombre='Bottom Up'))).\
+                annotate(Total=Sum('pregunta_respuesta__valor')/2).order_by('-Total')
+            dato = fichas2
+    else:
+        form = NameForm()
+    return render(request, 'encuesta/resultado.html',
+                  {'form': form,'dato':dato})
+
+def grafica(request, cuestionario, GadServ):
+    print(GadServ,' -' , cuestionario)
+    ficha = Fichas.objects.filter(gad_servi_usuario__gad_ser__idgadservicio=GadServ,
+                                  pregunta_respuesta__pregunta__encuesta__nombre=cuestionario).\
+        values('pregunta_respuesta__pregunta__subcategoria__categoria__categoria').\
+        annotate(Total = Sum('pregunta_respuesta__valor'))
+    return render(request, 'encuesta/graficas.html', {'dato':json.dumps(list(ficha))})

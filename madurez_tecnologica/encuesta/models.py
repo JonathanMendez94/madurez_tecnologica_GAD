@@ -54,6 +54,9 @@ class AuthUser(models.Model):
         managed = False
         db_table = 'auth_user'
 
+    def __str__(self):
+        return '%s' % (self.username)
+
 class User(models.Model):
     id_user = models.ForeignKey(AuthUser,models.DO_NOTHING, db_column='id_auth_user', blank=True, null=True)
 
@@ -85,6 +88,8 @@ class Categorias(models.Model):
         managed = False
         db_table = 'categorias'
 
+    def __str__(self):
+        return '%s' % (self.categoria)
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
@@ -138,6 +143,8 @@ class Encuestas(models.Model):
         managed = False
         db_table = 'encuestas'
 
+    def __str__(self):
+        return '%s' % (self.nombre)
 
 class Fichas(models.Model):
     idfichas = models.AutoField(db_column='idFichas', primary_key=True)  # Field name made lowercase.
@@ -170,6 +177,8 @@ class GadSerUser(models.Model):
         managed = False
         db_table = 'gad_ser_user'
 
+    def __str__(self):
+        return '%s,%s' % (self.gad_ser, self.user)
 
 class GadsServicios(models.Model):
     idgadservicio = models.AutoField(db_column='idGadServicio', primary_key=True)  # Field name made lowercase.
@@ -195,6 +204,8 @@ class Preguntas(models.Model):
         managed = False
         db_table = 'preguntas'
 
+    def __str__(self):
+        return '%s' % (self.pregunta)
 
 class PreguntasRespuestas(models.Model):
     idpreguntaresp = models.AutoField(db_column='idPreguntaResp', primary_key=True)  # Field name made lowercase.
@@ -240,3 +251,6 @@ class Subcategorias(models.Model):
     class Meta:
         managed = False
         db_table = 'subcategorias'
+
+    def __str__(self):
+        return '%s' % (self.subcategoria)

@@ -25,6 +25,8 @@ urlpatterns = [
     path('singup/', views.signup, name='signup'),
     path('index/', views.index, name='index'),
     path('gracias/', views.gracias, name='gracias'),
+    path('resultado/', views.resultado, name='resultado'),
+    path('graficas/<str:cuestionario>/<int:GadServ>/', views.grafica, name='graficas'),
     path('', views.index2, name='index2'),
 
 ]
