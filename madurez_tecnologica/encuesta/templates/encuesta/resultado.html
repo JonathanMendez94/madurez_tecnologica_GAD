@@ -54,13 +54,25 @@ INICIO
 
 
 <div class="container">
+    <br>
     <div class="row">
+
+        <h3>Codigo de colores</h3>
+        <div class="col-sm">
+            <button type="button" class="btn btn-success">Satisfactorio</button>
+        </div>
+        <div class="col-sm">
+            <button type="button" class="btn btn-danger">Peligro</button>
+        </div>
+        <div class="col-sm">
+            <button type="button" class="btn btn-warning">Precaución</button>
+        </div>
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">Servicio</th>
-                <th scope="col">Top_Down</th>
-                <th scope="col">Bottom_Up</th>
+                <th scope="col">Resultados Servicios ofrecidos por el GAD</th>
+                <th scope="col">Resultados Experiencia del beneficiario</th>
                 <th scope="col">Total</th>
             </tr>
             </thead>
@@ -68,8 +80,14 @@ INICIO
             {% for d in dato %}
             <tr>
                 <td>{{ d.gad_servi_usuario__gad_ser__servicios__servicio }}</td>
-                <td><a href="{% url 'graficas' 'Top Down' d.gad_servi_usuario__gad_ser__idgadservicio %}">{{ d.Top_Down|floatformat:2 }}</a></td>
-                <td><a href="{% url 'graficas' 'Bottom Up' d.gad_servi_usuario__gad_ser__idgadservicio %}">{{ d.Bottom_Up|floatformat:2 }}</a></td>
+                <td class="{% if d.Top_Down_Total >= 12.0 %} btn-success
+                {% elif d.Top_Down_Total >= 9.0 %} btn-warning
+                {% else %} btn-danger
+                {%endif%}"><a href="{% url 'graficas' 'Top Down' d.gad_servi_usuario__gad_ser__idgadservicio %}">{{d.Top_Down_Total|floatformat:2 }}</a></td>
+                <td class="{% if d.Bottom_Up_Total >= 12.0 %} btn-success
+                {% elif d.Bottom_Up_Total >= 9.0 %} btn-warning
+                {% else %} btn-danger
+                {%endif%}"><a href="{% url 'graficas' 'Bottom Up' d.gad_servi_usuario__gad_ser__idgadservicio %}">{{d.Bottom_Up_Total|floatformat:2 }}</a></td>
                 <td>{{ d.Total|floatformat:2 }}</td>
             </tr>
             {% endfor %}

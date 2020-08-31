@@ -3,11 +3,11 @@
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-from django.contrib.auth.models import User
+
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -54,11 +54,6 @@ class AuthUser(models.Model):
         managed = False
         db_table = 'auth_user'
 
-    def __str__(self):
-        return '%s' % (self.username)
-
-class User(models.Model):
-    id_user = models.ForeignKey(AuthUser,models.DO_NOTHING, db_column='id_auth_user', blank=True, null=True)
 
 class AuthUserGroups(models.Model):
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
@@ -88,8 +83,6 @@ class Categorias(models.Model):
         managed = False
         db_table = 'categorias'
 
-    def __str__(self):
-        return '%s' % (self.categoria)
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
@@ -143,8 +136,6 @@ class Encuestas(models.Model):
         managed = False
         db_table = 'encuestas'
 
-    def __str__(self):
-        return '%s' % (self.nombre)
 
 class Fichas(models.Model):
     idfichas = models.AutoField(db_column='idFichas', primary_key=True)  # Field name made lowercase.
@@ -166,19 +157,17 @@ class Gad(models.Model):
         db_table = 'gad'
 
     def __str__(self):
-        return '%s' % (self.gad)
+        return self.gad
 
 class GadSerUser(models.Model):
     idgadservuser = models.AutoField(db_column='idGadServUser', primary_key=True)  # Field name made lowercase.
-    gad_ser = models.ForeignKey('GadsServicios', models.CASCADE, blank=True, null=True)
+    gad_ser = models.ForeignKey('GadsServicios', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'gad_ser_user'
 
-    def __str__(self):
-        return '%s,%s' % (self.gad_ser, self.user)
 
 class GadsServicios(models.Model):
     idgadservicio = models.AutoField(db_column='idGadServicio', primary_key=True)  # Field name made lowercase.
@@ -198,14 +187,12 @@ class Preguntas(models.Model):
     idpregunta = models.AutoField(db_column='idPregunta', primary_key=True)  # Field name made lowercase.
     pregunta = models.CharField(max_length=300)
     encuesta = models.ForeignKey(Encuestas, models.DO_NOTHING)
-    subcategoria = models.ForeignKey('Subcategorias', models.DO_NOTHING, db_column='subCategoria_id', blank=True, null=True)  # Field name made lowercase.
+    categoria = models.ForeignKey(Categorias, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'preguntas'
 
-    def __str__(self):
-        return '%s' % (self.pregunta)
 
 class PreguntasRespuestas(models.Model):
     idpreguntaresp = models.AutoField(db_column='idPreguntaResp', primary_key=True)  # Field name made lowercase.
@@ -220,6 +207,7 @@ class PreguntasRespuestas(models.Model):
     def __str__(self):
         return '%s' % (self.respuesta)
 
+
 class Respuestas(models.Model):
     idrespuesta = models.AutoField(db_column='idRespuesta', primary_key=True)  # Field name made lowercase.
     respuesta = models.CharField(max_length=300)
@@ -231,7 +219,6 @@ class Respuestas(models.Model):
     def __str__(self):
         return '%s' % (self.respuesta)
 
-
 class Servicios(models.Model):
     id_servicio = models.AutoField(primary_key=True)
     servicio = models.CharField(max_length=300)
@@ -241,16 +228,4 @@ class Servicios(models.Model):
         db_table = 'servicios'
 
     def __str__(self):
-        return '%s' % (self.servicio)
-
-class Subcategorias(models.Model):
-    id_subcategoria = models.AutoField(primary_key=True)
-    subcategoria = models.CharField(max_length=300)
-    categoria = models.ForeignKey(Categorias, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'subcategorias'
-
-    def __str__(self):
-        return '%s' % (self.subcategoria)
+        return self.servicio

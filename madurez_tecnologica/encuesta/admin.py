@@ -28,9 +28,9 @@ class GadServiciosAdmin(admin.ModelAdmin):
 admin.site.register(GadsServicios,GadServiciosAdmin)
 
 class PreguntasAdmin(admin.ModelAdmin):
-    search_fields = ['pregunta','encuesta','subcategoria']
+    search_fields = ['pregunta','encuesta','categoria']
     #fields = ('pregunta','encuesta','subcategoria')
-    list_display = ('pregunta','encuesta','subcategoria')
+    list_display = ('pregunta','encuesta','categoria')
 admin.site.register(Preguntas, PreguntasAdmin)
 
 class PreguntasRespuestasAdmin(admin.ModelAdmin):
@@ -47,11 +47,6 @@ admin.site.register(Respuestas,RespuestasAdmin)
 class ServiciosAdmin(admin.ModelAdmin):
     search_fields = ['servicio']
 admin.site.register(Servicios,ServiciosAdmin)
-
-class SubcategoriasAdmin(admin.ModelAdmin):
-    search_fields = ['categoria','subcategoria']
-    list_display = ('categoria','subcategoria')
-admin.site.register(Subcategorias,SubcategoriasAdmin)
 
 
 

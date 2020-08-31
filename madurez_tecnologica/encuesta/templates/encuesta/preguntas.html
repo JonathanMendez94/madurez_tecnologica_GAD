@@ -1,4 +1,5 @@
 {% extends 'encuesta/../base/base.html' %}
+{% load static %}
 {% block titulo %}
 Cuestionario-Preguntas
 {% endblock %}
@@ -12,11 +13,27 @@ Cuestionario-Preguntas
             <div class="input-group">
                 {% if cuestionario == "Top Down" %}
 
-                <p>
-                    <br>
-                    <b>Instrucciones para llenar el cuestionario</b>
-                </p>
-                <p><a href="{% url 'logout' %}">logout</a></p>
+                 <div class="container">
+                    <div class="row">
+                        <div class="col col-lg-2">
+                            <img src="{% static 'encuesta/img/encuesta.png' %}" width="60"
+                                 height="70" class="d-inline-block align-top" alt="">
+                        </div>
+                         <div class="col-md-4 offset-md-4">
+                            <button type="button" class="btn btn-lg btn-warning"><a href="{% url 'logout' %}">logout</a>
+                            </button>
+                        </div>
+                        <b class="text-center">
+                            <h3>Bienvenido a la encuesta que permitirá medir la experiencia de usted como beneficiario
+                                del servicio</h3>
+                        </b>
+                    </div>
+                </div>
+                 <div class="container">
+                    <div class="row">
+                        <div class="col-8"><h3 class="text-center">Instrucciones para llenar el cuestionario</h3></div>
+                    </div>
+                </div>
                 <p>Debe indicar el estado del servicio que mejor conoce en la fecha de llenado de este cuestionario.</p>
                 <p>Para mantener el cuestionario simple y sin ambigüedades, los términos utilizados con frecuencia en el
                     cuestionario se han definido a continuación.</p>
@@ -30,6 +47,18 @@ Cuestionario-Preguntas
                     departamento del GAD.
                 </p>
                 {% else %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col col-lg-2">
+                            <img src="{% static 'encuesta/img/encuesta.png' %}" width="60"
+                                 height="70" class="d-inline-block align-top" alt="">
+                        </div>
+                        <b class="text-center">
+                            <h3>Bienvenido a la encuesta que permitirá medir la experiencia de usted como beneficiario
+                                del servicio</h3>
+                        </b>
+                    </div>
+                </div>
                 <p>
                     <br>
                     <b>Instrucciones para llenar el cuestionario</b>
@@ -64,19 +93,19 @@ Cuestionario-Preguntas
             </div>
         </form>
     </nav>
-                {% if cuestionario == "Top Down" %}
-                <p>
-                    <b>Nombre de el Gobierno Departamento / Ministerio: </b>{{ gad }}
-                    <br>
-                    <b>Nombre del Servicio: </b>{{ serv }}
-                    <br>
-                    <b>Propósito de los beneficiarios de los: </b> {{ nombre }}
-                    <br>
-                    <b>Servicios de los grupos de interés de: </b>
-                    <br>
-                    <b>Servicio del servicio: </b>
-                </p>
-                {% endif %}
+    {% if cuestionario == "Top Down" %}
+    <p>
+        <b>Nombre de el Gobierno Departamento / Ministerio: </b>{{ gad }}
+        <br>
+        <b>Nombre del Servicio: </b>{{ serv }}
+        <br>
+        <b>Propósito de los beneficiarios de los: </b> {{ nombre }}
+        <br>
+        <b>Servicios de los grupos de interés de: </b>
+        <br>
+        <b>Servicio del servicio: </b>
+    </p>
+    {% endif %}
     <nav class="navbar navbar-expand navbar-light bg-white mb-4 static-top shadow">
         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
@@ -91,7 +120,7 @@ Cuestionario-Preguntas
         {{ i }}
         {% endfor %}
         <input type="hidden" name="question_number" value="{{ question_number }}">
-        <input type="submit" class="form-control btn btn-primary" value="Siguiente >>">
+        <input type="submit" class="form-control btn btn-secondary" value="Siguiente >>">
     </form>
 
     {% if mensajeBool == True %}
