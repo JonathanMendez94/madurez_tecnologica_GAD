@@ -1,0 +1,63 @@
+{% extends 'encuesta/../base/base.html' %}
+{% load static %}
+{% block titulo %}
+INICIO
+{% endblock %}
+{% block menu %}
+<nav class="navbar navbar-light bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-2">
+                <a class="navbar-brand" href="{% url 'index2' %}">
+                    <img src="{% static 'encuesta/img/LOJA.png' %}" width="120"
+                         height="70" class="d-inline-block align-top" alt=""></a>
+            </div>
+            <div class="col-6">
+                <b class="text-primary">
+                    <h2>e-Governance Service Maturity Model</h2>
+                </b>
+            </div>
+            <div class="col col-lg-2">
+                <img src="{% static 'encuesta/img/escudo.png' %}" width="60"
+                     height="70" class="d-inline-block align-top" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid navbar-inverse">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active text-white" href="{% url 'index' %}">Realizar encuestas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'resultado' %}">Resultados</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+{% block centro %}
+<div id="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4 py-3 border-left-primary">
+                <div class="row">
+                <div class="col-8 col-sm-6">
+                    <img src="{% static 'encuesta/img/75456903_647942419347812_2502800013155893248_n.png' %}"
+                         class="img-fluid" alt="Responsive image">
+                </div>
+                <div class="col-8 col-sm-6">
+                    <img src="{% static 'encuesta/img/transformacion.gif' %}"
+                         class="img-fluid" alt="Responsive image">
+                </div>
+                </div>
+            </div>
+            <div class="align-self-center">
+                <a href="{% url 'encuesta' 1 %}" class="btn btn-secondary btn-lg btn-block">Encuesta Encargado Del
+                    Municipio</a>
+                <a href="{% url 'encuesta2' 2 %}" class="btn btn-primary btn-lg btn-block">Encuesta Beneficiarios Del
+                    Servicio</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

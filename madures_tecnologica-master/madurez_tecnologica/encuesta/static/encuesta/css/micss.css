@@ -1,0 +1,18 @@
+nav .imagen{
+     max-width: 100%;
+    height: auto;
+}
+
+h2 {
+  color: #3b5998;
+}
+
+.menu {
+    background-color: #3b5998;
+}
+
+.navbar-inverse {
+background-color: #3b5998;
+border-color: #ffffff;
+}
+
